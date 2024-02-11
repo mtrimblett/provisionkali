@@ -39,7 +39,7 @@
       service:
         name: smbd
         state: restarted
----
+        
 - hosts: localhost
   become: true
   gather_facts: false
