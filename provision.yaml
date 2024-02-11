@@ -177,7 +177,8 @@
           - whatweb
           - wkhtmltopdf
           - python3-venv
-      state: present
+        state: present
+
 
     - name: Install pipx
       ansible.builtin.command:
