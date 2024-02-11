@@ -14,11 +14,12 @@
       git:
         repo: https://github.com/mtrimblett/scripts.git
         dest: /opt/scripts
+        clone: true
         version: main
 
     - name: Set execute permission on a file
       ansible.builtin.file:
-        path: /opt/scripts/*
+        path: /opt/scripts/*.sh
         mode: 'u+x'
 
     - name: Clone PimpMyKali repository
