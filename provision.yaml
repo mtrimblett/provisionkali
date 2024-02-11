@@ -150,7 +150,6 @@
         src: "/opt/ligolo-ng/ligolo-ng_agent_0.5.1_windows_amd64.zip"
         dest: "/opt/ligolo-ng/"
         remote_src: yes
-        creates: "/opt/ligolo-ng/windows_amd64"
 
     - name: Delete ligolo Windows archive
       file:
@@ -167,11 +166,20 @@
         src: "/opt/ligolo-ng/ligolo-ng_agent_0.5.1_darwin_amd64.tar.gz"
         dest: "/opt/ligolo-ng/"
         remote_src: yes
-        creates: "/opt/ligolo-ng/linux_amd64"
 
     - name: Delete ligolo Linux archive
       file:
         path: "/opt/ligolo-ng/ligolo-ng_agent_0.5.1_darwin_amd64.tar.gz"
+        state: absent
+
+    - name: Delete ligolo README.md
+      file:
+        path: "/opt/ligolo-ng/README.md"
+        state: absent
+
+    - name: Delete ligolo LICENSE
+      file:
+        path: "/opt/ligolo-ng/LICENSE"
         state: absent
         
     - name: Install required packages for AutoRecon
