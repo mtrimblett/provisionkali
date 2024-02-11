@@ -3,47 +3,6 @@
   become: true
   gather_facts: false
   tasks:
-    - name: Check if client min protocol and client max protocol are set
-      shell: |
-        cat /etc/samba/smb.conf | grep -c -i "client min protocol"
-      register: check_min
-
-    #- name: Check if client max protocol is set
-    #  shell: |
-    #    cat /etc/samba/smb.conf | grep -c -i "client max protocol"
-    #  register: check_max
-
-    - name: Update smb.conf if necessary
-      block:
-        - name: Set client min and max protocols
-          lineinfile:
-            path: /etc/samba/smb.conf
-            regexp: '^\[global\]'
-            insertafter: '^\[global\]'
-            line: |
-              client min protocol = CORE
-              client max protocol = SMB3
-          when: check_min.stdout == "0" or check_max.stdout == "0"
-          notify:
-            - Restart Samba
-
-    - name: Print status messages
-      debug:
-        msg: |
-          {{ "/etc/samba/smb.conf updated" if check_min.stdout == "0" or check_max.stdout == "0" else "" }}
-          {{ "Added: client min protocol = CORE" if check_min.stdout == "0" else "" }}
-          {{ "Added: client max protocol = SMB3" if check_max.stdout == "0" else "" }}
-
-  handlers:
-    - name: Restart Samba
-      service:
-        name: smbd
-        state: restarted
-
-- hosts: localhost
-  become: true
-  gather_facts: false
-  tasks:
     - name: Set hostname to WHEELJACK
       ansible.builtin.hostname:
         name: WHEELJACK
