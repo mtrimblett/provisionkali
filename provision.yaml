@@ -21,12 +21,6 @@
         dest: /opt/XenSpawn
         version: main
 
-    - name: Clone WinPEAS
-      git:
-        repo: https://github.com/X0RW3LL/XenSpawn.git
-        dest: /opt/XenSpawn
-        version: main
-
     - name: Create /opt/linPEAS directory
       ansible.builtin.file:
         path: /opt/linPEAS
@@ -61,3 +55,71 @@
       get_url:
         url: "https://github.com/carlospolop/PEASS-ng/releases/latest/download/winPEASx86.exe"
         dest: "/opt/winPEAS/winPEASx86.exe"
+
+    - name: Create /opt/lse directory
+      ansible.builtin.file:
+        path: /opt/lse
+        state: directory
+        
+    - name: Download lse
+      get_url:
+        url: "https://github.com/diego-treitos/linux-smart-enumeration/releases/latest/download/lse.sh"
+        dest: "/opt/lse/lse.sh"
+        
+    - name: Clone adPEAS
+      git:
+        repo: https://github.com/61106960/adPEAS.git
+        dest: /opt/adPEAS
+        version: main
+
+    - name: Clone LinEnum
+      git:
+        repo: https://github.com/rebootuser/LinEnum.git
+        dest: /opt/LinEnum
+        version: master
+
+    - name: Create /opt/pspy directory
+      ansible.builtin.file:
+        path: /opt/pspy
+        state: directory
+        
+    - name: Download pspy32
+      get_url:
+        url: "https://github.com/DominicBreuker/pspy/releases/latest/download/pspy32"
+        dest: "/opt/pspy/pspy32"
+
+    - name: Download pspy64
+      get_url:
+        url: "https://github.com/DominicBreuker/pspy/releases/latest/download/pspy64"
+        dest: "/opt/pspy/pspy64"
+
+    - name: Create /opt/PowerView directory
+      ansible.builtin.file:
+        path: /opt/PowerView
+        state: directory
+
+    - name: Download PowerView.ps1
+      get_url:
+        url: "https://github.com/PowerShellMafia/PowerSploit/blob/dev/Recon/PowerView.ps1"
+        dest: "/opt/PowerView/PowerView.ps1"
+
+    - name: Clone PrivescCheck
+      git:
+        repo: https://github.com/itm4n/PrivescCheck.git
+        dest: /opt/PrivescCheck
+        version: master
+
+    - name: Create /opt/ligolo-ng directory
+      ansible.builtin.file:
+        path: /opt/ligolo-ng
+        state: directory
+
+    - name: Download ligolo Windows
+      get_url:
+        url: "https://github.com/nicocha30/ligolo-ng/releases/download/v0.5.1/ligolo-ng_agent_0.5.1_windows_amd64.zip"
+        dest: "/opt/ligolo-ng/ligolo-ng_agent_0.5.1_windows_amd64.zip"
+
+    - name: Download ligolo Linux
+      get_url:
+        url: "https://github.com/nicocha30/ligolo-ng/releases/download/v0.5.1/ligolo-ng_agent_0.5.1_darwin_amd64.tar.gz"
+        dest: "/opt/ligolo-ng/ligolo-ng_agent_0.5.1_darwin_amd64.tar.gz"
