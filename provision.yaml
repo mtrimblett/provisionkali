@@ -5,4 +5,4 @@
   tasks:
     - name: Set hostname to WHEELJACK
       ansible.builtin.hostname:
-        name: WHEELJACK
+        name: wheeljack
