@@ -149,3 +149,9 @@
       get_url:
         url: "https://github.com/nicocha30/ligolo-ng/releases/download/v0.5.1/ligolo-ng_agent_0.5.1_darwin_amd64.tar.gz"
         dest: "/opt/ligolo-ng/ligolo-ng_agent_0.5.1_darwin_amd64.tar.gz"
+        
+    - name: Clone AutoRecon
+      git:
+        repo: https://github.com/Tib3rius/AutoRecon.git
+        dest: /opt/AutoRecon
+        version: main
