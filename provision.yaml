@@ -177,6 +177,7 @@
           - whatweb
           - wkhtmltopdf
           - python3-venv
+          - pipx
         state: present
 
 
