@@ -17,13 +17,10 @@
         clone: true
         version: main
 
-    - name: Install xclip (needed for scripts in my Git repo)
-      hosts: localhost
-      tasks:
-        - name: Install xclip package
-          ansible.builtin.apt:
-            name: xclip
-            state: present
+    - name: Install xclip package (needed for scripts in my Git repo)
+      ansible.builtin.apt:
+        name: xclip
+        state: present
 
     - name: Set execute permission
       ansible.builtin.find:
