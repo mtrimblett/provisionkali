@@ -150,8 +150,50 @@
         url: "https://github.com/nicocha30/ligolo-ng/releases/download/v0.5.1/ligolo-ng_agent_0.5.1_darwin_amd64.tar.gz"
         dest: "/opt/ligolo-ng/ligolo-ng_agent_0.5.1_darwin_amd64.tar.gz"
         
-    - name: Clone AutoRecon
-      git:
-        repo: https://github.com/Tib3rius/AutoRecon.git
-        dest: /opt/AutoRecon
-        version: main
+---
+    - name: Update package cache
+      ansible.builtin.apt:
+        update_cache: yes
+
+    - name: Install required packages for AutoRecon
+      ansible.builtin.apt:
+        name:
+          - python3
+          - python3-pip
+          - seclists
+          - curl
+          - enum4linux
+          - feroxbuster
+          - gobuster
+          - impacket-scripts
+          - nbtscan
+          - nikto
+          - nmap
+          - onesixtyone
+          - oscanner
+          - redis-tools
+          - smbclient
+          - smbmap
+          - snmp
+          - sslscan
+          - sipvicious
+          - tnscmd10g
+          - whatweb
+          - wkhtmltopdf
+          - python3-venv
+      state: present
+
+    - name: Install pipx
+      ansible.builtin.command:
+        cmd: python3 -m pip install --user pipx
+      changed_when: false
+
+    - name: Ensure pipx path is set
+      ansible.builtin.command:
+        cmd: python3 -m pipx ensurepath
+      changed_when: false
+
+    - name: Install AutoRecon using pipx
+      ansible.builtin.command:
+        cmd: pipx install git+https://github.com/Tib3rius/AutoRecon.git
+      changed_when: false
