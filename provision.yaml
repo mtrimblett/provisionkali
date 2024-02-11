@@ -6,3 +6,15 @@
     - name: Set hostname to WHEELJACK
       ansible.builtin.hostname:
         name: wheeljack
+
+    - name: Add entry to /etc/hosts
+      ansible.builtin.lineinfile:
+        path: /etc/hosts
+        regexp: '^127\.0\.0\.1'
+        line: '127.0.0.1 wheeljack'
+        state: present
+
+#- name: Reboot the system
+  #ansible.builtin.reboot:
+   # reboot_timeout: 300
+    #test_command: uptime
