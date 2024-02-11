@@ -2,6 +2,7 @@
   hosts: localhost
   become: true
   gather_facts: false
+  ignore_errors: yes
   tasks:
     - name: Clone my Git provision Kali repository
       git:
@@ -14,6 +15,11 @@
         repo: https://github.com/mtrimblett/scripts.git
         dest: /opt/scripts
         version: main
+
+    - name: Set execute permission on a file
+      ansible.builtin.file:
+        path: /opt/scripts/*
+        mode: 'u+x'
 
     - name: Clone PimpMyKali repository
       git:
