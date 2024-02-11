@@ -3,10 +3,16 @@
   become: true
   gather_facts: false
   tasks:
-    - name: Clone my Git repository
+    - name: Clone my Git provision Kali repository
       git:
         repo: https://github.com/mtrimblett/provisionkali.git
         dest: /opt/provisionkali
+        version: main
+
+    - name: Clone my Git Scripts repository
+      git:
+        repo: https://github.com/mtrimblett/scripts.git
+        dest: /opt/scripts
         version: main
 
     - name: Clone PimpMyKali repository
