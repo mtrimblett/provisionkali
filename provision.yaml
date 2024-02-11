@@ -17,10 +17,18 @@
         clone: true
         version: main
 
-    - name: Set execute permission on a file
+    - name: Set execute permission
+      ansible.builtin.find:
+        paths: /opt/scripts
+        recurse: yes
+        file_type: file
+      register: script_files
+
+    - name: Set execute permission for each file
       ansible.builtin.file:
-        path: /opt/scripts/*.sh
-        mode: 'u+x'
+        path: "{{ item.path }}"
+        mode: u+x
+      with_items: "{{ script_files.files }}"
 
     - name: Clone PimpMyKali repository
       git:
