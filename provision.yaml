@@ -8,10 +8,10 @@
         cat /etc/samba/smb.conf | grep -c -i "client min protocol"
       register: check_min
 
-    - name: Check if client max protocol is set
-      shell: |
-        cat /etc/samba/smb.conf | grep -c -i "client max protocol"
-      register: check_max
+    #- name: Check if client max protocol is set
+    #  shell: |
+    #    cat /etc/samba/smb.conf | grep -c -i "client max protocol"
+    #  register: check_max
 
     - name: Update smb.conf if necessary
       block:
@@ -39,7 +39,7 @@
       service:
         name: smbd
         state: restarted
-        
+
 - hosts: localhost
   become: true
   gather_facts: false
@@ -47,4 +47,3 @@
     - name: Set hostname to WHEELJACK
       ansible.builtin.hostname:
         name: WHEELJACK
-
