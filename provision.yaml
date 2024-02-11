@@ -196,6 +196,10 @@
         cmd: pipx install git+https://github.com/Tib3rius/AutoRecon.git
       changed_when: false
 
+    - name: Install Virtualenv version 20.21.1
+      ansible.builtin.pip:
+        name: virtualenv==20.21.1
+
     - name: Download Python archive for Python2 Virtual Environment
       get_url:
         url: https://www.python.org/ftp/python/2.7.15/Python-2.7.15.tgz
