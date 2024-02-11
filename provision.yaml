@@ -222,3 +222,15 @@
         recurse: yes
         owner: michael
         group: michael
+
+    - name: Execute install_autorecon.sh
+      shell:
+        cmd: /opt/scripts/install_autorecon.sh
+      become: yes
+      become_user: michael
+
+    - name: Execute setup_virtual_venv.sh
+      shell:
+        cmd: /opt/scripts/setup_virtual_venv.sh
+      become: yes
+      become_user: michael
