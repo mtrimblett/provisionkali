@@ -223,13 +223,6 @@
         owner: michael
         group: michael
 
-            - name: Recursively change ownership
-      ansible.builtin.file:
-        path: /opt/Python-2.7.15
-        recurse: yes
-        owner: michael
-        group: michael
-
     - name: Run commands as Michael
       become: yes
       become_user: michael
