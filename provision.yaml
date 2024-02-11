@@ -195,3 +195,42 @@
       ansible.builtin.command:
         cmd: pipx install git+https://github.com/Tib3rius/AutoRecon.git
       changed_when: false
+
+    - name: Download Python archive for Python2 Virtual Environment
+      get_url:
+        url: https://www.python.org/ftp/python/2.7.15/Python-2.7.15.tgz
+        dest: /opt/Python-2.7.15.tgz
+
+    - name: Extract Python archive
+      unarchive:
+        src: /opt/Python-2.7.15.tgz 
+        dest: /opt/
+        remote_src: yes
+
+    - name: Remove Python archive file 
+      file:
+        path: /opt/Python-2.7.15.tgz 
+        state: absent
+
+    - name: Recursively change ownership
+      ansible.builtin.file:
+        path: /opt/Python-2.7.15
+        recurse: yes
+        owner: michael
+        group: michael
+
+    - name: Run commands as Michael
+      become: yes
+      become_user: michael
+      shell:
+        cmd: "{{ item }}"
+      with_items:
+        - "./opt/Python-2.7.15/configure --prefix=$HOME/opt/python-2.7.15"
+        - "make"
+        - "make install"
+
+    - name: Create virtual environment
+      become: yes
+      become_user: michael
+      shell:
+        cmd: "virtualenv -p /home/michael/opt/python-2.7.15/bin/python venv"
