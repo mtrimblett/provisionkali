@@ -1,8 +1,63 @@
----
-- hosts: localhost
+- name: provisionkali
+  hosts: localhost
   become: true
   gather_facts: false
   tasks:
-    - name: Set hostname to WHEELJACK
-      ansible.builtin.hostname:
-        name: wheeljack
+    - name: Clone my Git repository
+      git:
+        repo: https://github.com/mtrimblett/provisionkali.git
+        dest: /opt/provisionkali
+        version: main
+
+    - name: Clone PimpMyKali repository
+      git:
+        repo: https://github.com/Dewalt-arch/pimpmykali.git
+        dest: /opt/pimpmykali
+        version: master
+
+    - name: Clone XenSpawn
+      git:
+        repo: https://github.com/X0RW3LL/XenSpawn.git
+        dest: /opt/XenSpawn
+        version: main
+
+    - name: Clone WinPEAS
+      git:
+        repo: https://github.com/X0RW3LL/XenSpawn.git
+        dest: /opt/XenSpawn
+        version: main
+
+    - name: Create /opt/linPEAS directory
+      ansible.builtin.file:
+        path: /opt/linPEAS
+        state: directory
+
+    - name: Create /opt/winPEAS directory
+      ansible.builtin.file:
+        path: /opt/winPEAS
+        state: directory
+
+    - name: Download linpeas.sh
+      get_url:
+        url: "https://github.com/carlospolop/PEASS-ng/releases/latest/download/linpeas.sh"
+        dest: "/opt/linPEAS/linpeas.sh"
+
+    - name: Download winPEASany.exe
+      get_url:
+        url: "https://github.com/carlospolop/PEASS-ng/releases/latest/download/winPEASany.exe"
+        dest: "/opt/winPEAS/winPEASany.exe"
+        
+    - name: Download winPEASx64.exe
+      get_url:
+        url: "https://github.com/carlospolop/PEASS-ng/releases/latest/download/winPEASx64.exe"
+        dest: "/opt/winPEAS/winPEASx64.exe"
+
+    - name: Download winPEAS.bat
+      get_url:
+        url: "https://github.com/carlospolop/PEASS-ng/releases/latest/download/winPEAS.bat"
+        dest: "/opt/winPEAS/winPEAS.bat"
+
+    - name: Download winPEASx86.exe
+      get_url:
+        url: "https://github.com/carlospolop/PEASS-ng/releases/latest/download/winPEASx86.exe"
+        dest: "/opt/winPEAS/winPEASx86.exe"
